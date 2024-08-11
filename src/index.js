@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import RequiredDataProvider from './Components/Context/RequiredDataProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <RequiredDataProvider>
     <App />
+    </RequiredDataProvider>
+  
   </React.StrictMode>
 );
 
