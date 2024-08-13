@@ -54,13 +54,15 @@ const states = {
 };
 
 const RateStructure={"Fixed":"fixed", "Adjustable":"arm"}
+
 const LoanTerm={"30 Years":"30","15 Years":"15"}
 const LoanType={"Conventional":"conf","FHA":"fha", "VA":"va" }
+const ArmType={"3/1":"3-1","5/1":"5-1","7/1":"7-1","10/1":"10-1"}
 export const useRequiredDataContext = () => useContext(RequiredDataContext);
 const RequiredDataProvider = ({children}) => {
   
   return (
-   <RequiredDataContext.Provider value={{states,RateStructure,LoanTerm,LoanType}}>{children}</RequiredDataContext.Provider>
+   <RequiredDataContext.Provider value={{states,RateStructure,LoanTerm,LoanType,ArmType}}>{children}</RequiredDataContext.Provider>
   )
 }
 

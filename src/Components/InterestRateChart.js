@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import { Box, Card } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import RequiredDataProvider, {
   useRequiredDataContext,
 } from "./Context/RequiredDataProvider";
@@ -52,10 +52,12 @@ import Dropdown from "./Dropdown";
 import TextField from "@mui/material/TextField";
 import CustomSlider from "./CustomSlider";
 const InterestRateChart = () => {
-  const { states, RateStructure, LoanTerm, LoanType } =
+  const { states, RateStructure, LoanTerm, LoanType,ArmType } =
     useRequiredDataContext();
   const [rate, setRate] = useState({});
   const[selectedHousePrice,setSelectedHousePrice]=useState("200000")
+  const loanAmount=180000
+  
   const [selectedState, setSelectedState] = useState(Object.values(states)[0]);
   const [selectedRateStructure, setSelectedRateStructure] = useState(
     Object.values(RateStructure)[0]
@@ -65,6 +67,9 @@ const InterestRateChart = () => {
   );
   const [selectedLoanType, setSelectedLoanType] = useState(
     Object.values(LoanType)[0]
+  );
+  const [selectedARMType, setSelectedARMType] = useState(
+    Object.values(ArmType)[0]
   );
   const[minValue,setMinValue]=useState(720)
   const[maxValue,setMaxValue]=useState(739)
@@ -83,6 +88,9 @@ const InterestRateChart = () => {
   const handleHousePrice=(e)=>{
     setSelectedHousePrice(e.target.value)
   }
+  const handleARMType=(e)=>{
+    setSelectedARMType(e.target.value)
+  }
   const handleRangeChange=(start,end)=>{
 setMinValue(start)
 setMaxValue(end)
@@ -90,7 +98,7 @@ setMaxValue(end)
 
   const getData = async () => {
     const apiData = await axios.get(
-      `/oah-api/rates/rate-checker?price=${selectedHousePrice}&loan_amount=180000&minfico=${minValue}&maxfico=${maxValue}&state=${selectedState}&rate_structure=${selectedRateStructure}&loan_term=${selectedLoanTerm}&loan_type=${selectedLoanType}&arm_type=5-1`
+      `/oah-api/rates/rate-checker?price=${selectedHousePrice}&loan_amount=180000&minfico=${minValue}&maxfico=${maxValue}&state=${selectedState}&rate_structure=${selectedRateStructure}&loan_term=${selectedLoanTerm}&loan_type=${selectedLoanType}&arm_type=${selectedARMType}`
     );
     // const apiData = await axios.get(
     //   "/oah-api/rates/rate-checker?price=1000&loan_amount=900&minfico=700&maxfico=719&state=AZ&rate_structure=fixed&loan_term=30&loan_type=conf&arm_type=5-1"
@@ -108,14 +116,15 @@ setMaxValue(end)
     selectedLoanType,
     selectedHousePrice,
     minValue,
-    maxValue
+    maxValue,
+    selectedARMType
   ]);
 
   return (
-    <Box>
-         <><CustomSlider onRangeChange={handleRangeChange}/></> 
+    <Box className="h-screen">
     <Box className="flex justify-center items-center">
       <TextField value={selectedHousePrice} onChange={handleHousePrice} id="outlined-basic"  variant="outlined" size="small" />
+      <Typography variant="h5" component="h2" >{loanAmount}</Typography>
       <Dropdown
         value={selectedState}
         options={states}
@@ -137,11 +146,20 @@ setMaxValue(end)
         options={LoanType}
         onChange={handleLoanType}
       />
+      { selectedRateStructure=="arm" && 
+      <Dropdown
+        value={selectedARMType}
+        options={ArmType}
+        onChange={handleARMType}/>
+      }
+       <><CustomSlider onRangeChange={handleRangeChange}/></> 
+      
       </Box>
       <Box className="h-screen mx-auto flex justify-center items-center" >
       <Card
         elevation={0}
-       className="shadow-md h-[500px] w-[900px] border p-4 rounded-md"
+        sx={{"boxShadow":"0 10px 10px rgba(0, 0, 0, 0.1)"}}
+       className="shadow-md h-[500px] w-[900px] p-4 rounded-md"
       >
         <ReactApexChart
           options={{
@@ -150,6 +168,9 @@ setMaxValue(end)
               type: "bar",
               toolbar: { show: false },
             },
+            grid: {
+                 show: true,
+                 },
             xaxis: {
               labels: {
                 rotate: -90,
@@ -167,7 +188,7 @@ setMaxValue(end)
                 text: "Number of lenders offering rate",
               },
             },
-            colors: ["#addc91"],
+            colors: ["#449d48"],
 
             dataLabels: {
               enabled: false,

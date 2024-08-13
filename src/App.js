@@ -7,7 +7,7 @@ import CustomSlider from './Components/CustomSlider';
 function App() {
 
   return (
-    <div className="bg-slate-50">
+    <div className="h-screen bg-[#e9e7e71a]">
   <InterestRateChart/>
     
      
