@@ -113,6 +113,7 @@ const InterestRateChart = () => {
         <Box className="flex flex-col space-y-2 mt-3">
           <Typography variant="subtitle1" className="text-[#00000099]">Select State</Typography>
           <Dropdown
+            label={"Selected State"}
             value={selectedState}
             options={states}
             onChange={handleStates}

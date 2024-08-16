@@ -1,9 +1,8 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
 import InterestRateChart from "./Components/InterestRateChart";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import CustomSlider from "./Components/CustomSlider";
+
+import "./App.css";
+
 function App() {
   return (
     <div className="h-screen bg-[#e9e7e71a]">
