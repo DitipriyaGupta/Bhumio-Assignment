@@ -67,7 +67,7 @@ const CustomSlider = ({onRangeChange}) => {
  
   return (
     <Box sx={{ width: 300, margin: "auto", mt: 5 }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="subtitle1" className="text-[#00000099]" gutterBottom>
         Credit score range
       </Typography>
       <CreditScoreSlider
@@ -78,11 +78,11 @@ const CustomSlider = ({onRangeChange}) => {
         step={null}
         marks={marks}
       />
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between"}}>
         <Typography variant="body2">{MIN}</Typography>
         <Typography variant="body2">{MAX}</Typography>
       </Box>
-      <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+      <Typography variant="body2" align="center">
         {`${rangeStart} - ${rangeEnd}`}
       </Typography>
     </Box>
